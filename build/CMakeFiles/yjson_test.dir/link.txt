@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/cc  -ansi -pedantic -Wall -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/yjson_test.dir/test.c.o -o yjson_test  libyjson.a 

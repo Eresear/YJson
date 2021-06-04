@@ -1,0 +1,4 @@
+/Users/yangyang/Desktop/C++项目/YJson/build/CMakeFiles/rebuild_cache.dir
+/Users/yangyang/Desktop/C++项目/YJson/build/CMakeFiles/edit_cache.dir
+/Users/yangyang/Desktop/C++项目/YJson/build/CMakeFiles/yjson_test.dir
+/Users/yangyang/Desktop/C++项目/YJson/build/CMakeFiles/yjson.dir
