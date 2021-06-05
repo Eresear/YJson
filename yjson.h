@@ -29,5 +29,5 @@ int yjson_parse(yjson_value* v, const char* json);
 
 yjson_type yjson_get_type(const yjson_value* v);
 
-
+double yjson_get_number(const yjson_value* v);
 #endif
