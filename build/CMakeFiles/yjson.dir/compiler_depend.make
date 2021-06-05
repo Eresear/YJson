@@ -67,7 +67,10 @@ CMakeFiles/yjson.dir/yjson.c.o: ../yjson.c \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/sys/_types/_null.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/malloc/_malloc.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/sys/_types/_dev_t.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/sys/_types/_mode_t.h
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/sys/_types/_mode_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/errno.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/sys/errno.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/math.h
 
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/sys/_types/_mode_t.h:
@@ -81,6 +84,8 @@ CMakeFiles/yjson.dir/yjson.c.o: ../yjson.c \
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/_types/_uintmax_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/_types/_uint64_t.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/sys/errno.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/libkern/i386/_OSByteOrder.h:
 
@@ -162,6 +167,8 @@ CMakeFiles/yjson.dir/yjson.c.o: ../yjson.c \
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/sys/_types/_int32_t.h:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/math.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/AvailabilityVersions.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/sys/wait.h:
@@ -171,6 +178,8 @@ CMakeFiles/yjson.dir/yjson.c.o: ../yjson.c \
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/machine/_types.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/Availability.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/errno.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/sys/_types/_u_int32_t.h:
 

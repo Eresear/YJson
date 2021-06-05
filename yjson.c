@@ -1,7 +1,8 @@
 #include "yjson.h"
 #include <assert.h>  /* assert() */
 #include <stdlib.h>  /* NULL */
-
+#include <errno.h>
+#include <math.h>
 #define ISDIGIT(ch) ((ch) >='0' && (ch) <='9')
 #define ISDIGIT1T09(ch)  ((ch) >= '1' && (ch) <= '9')
 #define EXPECT(c,ch) do {assert(*c->json == (ch)) ; c->json++;} while(0)
@@ -34,11 +35,31 @@ static int yjson_parse_literal(yjson_context*c,yjson_value* v,const char* litera
 }
 
 static int yjson_parse_number(yjson_context*c ,yjson_value*v){
-    char* end;
-    v->n = strtod(c->json,&end);
-    if(c->json == end)
-        return YJSON_PARSE_INVALID_VALUE;
-    c->json= end;
+    const char* p= c->json;
+    if(*p =='-') p++;
+    if(*p == '0') p++;
+    else{
+        if(!ISDIGIT1T09(*p)) return YJSON_PARSE_INVALID_VALUE;
+        for(p++; ISDIGIT(*p) ;p++);
+    }
+    if(*p =='.'){
+        p++;
+        if(!ISDIGIT(*p)) return YJSON_PARSE_INVALID_VALUE;
+        for(p++; ISDIGIT(*p) ;p++);
+    }
+    if(*p == 'e' || *p == 'E'){
+        p++;
+        if(*p == '+' || *p =='-') p++;
+        if(!ISDIGIT(*p)) return YJSON_PARSE_INVALID_VALUE;
+        for(p++; ISDIGIT(*p) ;p++);
+    }
+
+
+    errno = 0;
+    v->n = strtod(c->json,NULL);
+    if(errno ==  ERANGE && (v->n == HUGE_VAL || v->n == -HUGE_VAL))
+        return YJSON_PARSE_NUMBER_TOO_BIG;
+    c->json= p;
     v->type = YJSON_NUMBER;
     return YJSON_PARSE_OK;
         
@@ -53,8 +74,6 @@ static int yjson_parse_value(yjson_context *c , yjson_value *v ){
     }
 }
 
-/* 提示：这里应该是 JSON-text = ws value ws，*/
-/* 以下实现没处理最后的 ws 和 YJSON_PARSE_ROOT_NOT_SINGULAR */
 int yjson_parse(yjson_value* v, const char* json) {
     yjson_context c;
     int ret;
@@ -64,8 +83,11 @@ int yjson_parse(yjson_value* v, const char* json) {
     yjson_parse_whitespace(&c);
     if((ret = yjson_parse_value(&c,v))==YJSON_PARSE_OK){
         yjson_parse_whitespace(&c);
-        if(*c.json !='\0')
+        if(*c.json !='\0'){
+            v->type = YJSON_NULL;
             ret = YJSON_PARSE_ROOT_NOT_SINGULAR;
+        }
+            
     }
     return ret;
     
