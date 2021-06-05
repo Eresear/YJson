@@ -2,6 +2,8 @@
 #include <assert.h>  /* assert() */
 #include <stdlib.h>  /* NULL */
 
+#define ISDIGIT(ch) ((ch) >='0' && (ch) <='9')
+#define ISDIGIT1T09(ch)  ((ch) >= '1' && (ch) <= '9')
 #define EXPECT(c,ch) do {assert(*c->json == (ch)) ; c->json++;} while(0)
 
 typedef struct {

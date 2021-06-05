@@ -21,7 +21,8 @@ enum {
     YJSON_PARSE_OK = 0,
     YJSON_PARSE_EXPECT_VALUE, // JSON 只含有空白 ,没有值
     YJSON_PARSE_INVALID_VALUE,// 无效字符
-    YJSON_PARSE_ROOT_NOT_SINGULAR // 一个值之后 ，除了空白字符，还有其他字符
+    YJSON_PARSE_ROOT_NOT_SINGULAR, // 一个值之后 ，除了空白字符，还有其他字符
+    YJSON_PARSE_NUMBER_TOO_BIG
 };
 
 
