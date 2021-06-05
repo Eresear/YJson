@@ -31,35 +31,6 @@ static int yjson_parse_literal(yjson_context*c,yjson_value* v,const char* litera
     return YJSON_PARSE_OK;
 }
 
-static int yjson_parse_null(yjson_context*c,yjson_value* v){
-    EXPECT(c,'n');
-
-    if(c->json[0] !='u' || c->json[1] != 'l' || c->json[2] != 'l' )
-        return YJSON_PARSE_INVALID_VALUE;
-    c->json +=3;
-    v->type = YJSON_NULL;
-    return YJSON_PARSE_OK;
-}
-
-static int yjson_parse_true(yjson_context*c,yjson_value* v){
-    EXPECT(c,'t');
-
-    if(c->json[0] !='r' || c->json[1] != 'u' || c->json[2] != 'e' )
-        return YJSON_PARSE_INVALID_VALUE;
-    c->json +=3;
-    v->type = YJSON_TRUE;
-    return YJSON_PARSE_OK;
-}
-static int yjson_parse_false(yjson_context*c,yjson_value* v){
-    EXPECT(c,'f');
-
-    if(c->json[0] !='a' || c->json[1] != 'l' || c->json[2] != 's'||c->json[3]!='e' )
-        return YJSON_PARSE_INVALID_VALUE;
-    c->json +=4;
-    v->type = YJSON_FALSE;
-    return YJSON_PARSE_OK;
-}
-
 static int yjson_parse_number(yjson_context*c ,yjson_value*v){
     char* end;
     v->n = strtod(c->json,&end);
