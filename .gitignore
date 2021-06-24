@@ -17,7 +17,7 @@
 *.dll
 
 # Fortran module files
-*.mod
+*.modgu
 *.smod
 
 # Compiled Static libraries
@@ -30,5 +30,6 @@
 *.exe
 *.out
 *.app
-build/*
+build/
+
 t.c
