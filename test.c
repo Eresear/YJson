@@ -22,6 +22,10 @@ static int test_pass = 0;
 
 #define EXPECT_EQ_INT(expect, actual) EXPECT_EQ_BASE((expect) == (actual), expect, actual, "%d")
 #define EXPECT_EQ_DOUBLE(expect, actual) EXPECT_EQ_BASE((expect) == (actual), expect, actual, "%.17g")
+#define EXPECT_EQ_STRING(expect, actual, alength) \
+    EXPECT_EQ_BASE(sizeof(expect) - 1 == alength && memcmp(expect, actual, alength) == 0, expect, actual, "%s")
+
+
 
 #define TEST_NUMBER(expect, json)                             \
     do                                                        \
@@ -99,6 +103,19 @@ static void test_parse_number()
     TEST_NUMBER(-1.7976931348623157e+308, "-1.7976931348623157e+308");
 
 }
+
+#define TEST_STRING(expect, json)\
+    do {\
+        yjson_value v;\
+        yjson_init(&v);\
+        EXPECT_EQ_INT(YJSON_PARSE_OK, yjson_parse(&v, json));\
+        EXPECT_EQ_INT(YJSON_STRING, yjson_get_type(&v));\
+        EXPECT_EQ_STRING(expect, yjson_get_string(&v), yjson_get_string_length(&v));\
+        yjson_free(&v);\
+    } while(0)
+    
+
+
 static void test_parse_invalid_value()
 {
     /* ... */
@@ -136,6 +153,52 @@ static void test_parse_number_too_big() {
     TEST_ERROR(YJSON_PARSE_NUMBER_TOO_BIG, "1e309");
     TEST_ERROR(YJSON_PARSE_NUMBER_TOO_BIG, "-1e309");
 }
+static void test_access_null() {
+    yjson_value v;
+    yjson_init(&v);
+    yjson_set_string(&v, "a", 1);
+    yjson_set_null(&v);
+    EXPECT_EQ_INT(YJSON_NULL, yjson_get_type(&v));
+    yjson_free(&v);
+}
+static void test_parse_missing_quotation_mark() {
+    TEST_ERROR(YJSON_PARSE_MISS_QUOTATION_MARK, "\"");
+    TEST_ERROR(YJSON_PARSE_MISS_QUOTATION_MARK, "\"abc");
+}
+
+static void test_parse_string() {
+    TEST_STRING("", "\"\"");
+    TEST_STRING("Hello", "\"Hello\"");
+
+    TEST_STRING("Hello\nWorld", "\"Hello\\nWorld\"");
+    TEST_STRING("\" \\ / \b \f \n \r \t", "\"\\\" \\\\ \\/ \\b \\f \\n \\r \\t\"");
+
+}
+
+static void test_access_string() {
+    yjson_value v;
+    yjson_init(&v);
+    yjson_set_string(&v, "", 0);
+    EXPECT_EQ_STRING("", yjson_get_string(&v), yjson_get_string_length(&v));
+    yjson_set_string(&v, "Hello", 5);
+    EXPECT_EQ_STRING("Hello", yjson_get_string(&v), yjson_get_string_length(&v));
+    yjson_free(&v);
+}
+
+
+static void test_access_boolean() {
+    yjson_value v;
+    yjson_init(&v);
+    yjson_set_boolean(&v, 1);
+    EXPECT_EQ_INT(1, yjson_get_boolean(&v));
+    yjson_set_boolean(&v, 0);
+    EXPECT_EQ_INT(0, yjson_get_boolean(&v));
+    yjson_free(&v);
+}
+
+static void test_access_number() {
+    /* \TODO */
+}
 
 static void test_parse()
 {
@@ -147,6 +210,12 @@ static void test_parse()
     test_parse_invalid_value();
     test_parse_root_not_sigular();
     test_parse_number_too_big;
+    // test_parse_missing_quotation_mark();
+        test_access_null();
+    test_access_boolean();
+    test_access_number();
+    test_access_string();
+    test_parse_string();
 }
 
 int main()
