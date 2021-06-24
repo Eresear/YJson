@@ -30,6 +30,9 @@
 *.exe
 *.out
 *.app
-build/
+
+build/*/
+build/*
+
 
 t.c
